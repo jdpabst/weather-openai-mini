@@ -1,13 +1,15 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Router from './Router';
 import Header from './components/Header/Header';
 
 function App() {
+  const [outfit, setOutfit] = useState(null)
 
   useEffect(() => {
     exampleApiCall();
+    getOutfit();
   }, [])
 
   // example of talking to the api
@@ -16,11 +18,17 @@ function App() {
     console.log(result)
   }
 
+  async function getOutfit() {
+    const location = "Logan"
+    const result = await axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}/weather/${location}`)
+    setOutfit(result.data.outfit)
+  }
+
 
   return (
     <div className="App">
       <Header />
-      <Router />
+      <Router outfit={outfit} getOutfit={getOutfit} />
     </div>
   );
 }
