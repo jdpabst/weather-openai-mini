@@ -5,7 +5,11 @@ import Router from './Router';
 import Header from './components/Header/Header';
 
 function App() {
-  const [outfit, setOutfit] = useState(null)
+  const [outfit, setOutfit] = useState(null);
+  const [temp, setTemp] = useState(null);
+  const [feelsLike, setFeelsLike] = useState(null);
+  const [desc, setDesc] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     exampleApiCall();
@@ -19,16 +23,30 @@ function App() {
   }
 
   async function getOutfit(city) {
-    // const location = "Logan"
-    const result = await axios.get(`${process.env.REACT_APP_BACKEND_BASE_URL}/weather/${city}`)
-    setOutfit(result.data.outfit)
+    setLoading(true);
+
+    try {
+      const result = await axios.get(
+        `${process.env.REACT_APP_BACKEND_BASE_URL}/weather/${city}`
+      );
+
+      setOutfit(result.data.outfit);
+      setTemp(result.data.temp);
+      setFeelsLike(result.data.feels_like);
+      setDesc(result.data.description);
+
+    } catch (error) {
+      console.error("Error fetching outfit:", error);
+    } finally {
+      setLoading(false); // ✅ spinner will ALWAYS stop
+    }
   }
 
 
   return (
     <div className="App">
       <Header />
-      <Router outfit={outfit} getOutfit={getOutfit} />
+      <Router outfit={outfit} getOutfit={getOutfit} temp={temp} feelsLike={feelsLike} desc={desc} loading={loading} />
     </div>
   );
 }

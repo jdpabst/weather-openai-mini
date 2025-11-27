@@ -1,19 +1,53 @@
 .home-main-container {
  margin-top: 20px;
 
+ input {
+  height: 40px;
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 7px;
+  border: 1px solid gray;
+  color: gray;
+ }
+
+ input::placeholder {
+  color: lightgray;
+ }
+
+ input:focus {
+  outline-color: lightblue;
+ }
+
  button {
   border-radius: 7px;
   border: none;
   background-color: red;
   height: 40px;
-  width: 80px;
+  width: 85px;
+  font-weight: bold;
   color: white;
  }
 
- p {
-  margin: 0 auto;
-  margin-top: 20px;
-  font-size: 12px;
+ .weather-info-container {
+  border: 1px solid lightblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
   width: 80%;
+  margin: 0 auto;
+  margin-top: 25px;
+  border-radius: 7px;
+  padding: 5px;
+  color: gray;
+ }
+
+ .outfit-response {
+  margin: 0 auto;
+  margin-top: 41px;
+  font-size: 18px;
+  width: 75%;
+  color: black;
  }
 }

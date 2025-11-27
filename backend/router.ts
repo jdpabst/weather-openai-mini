@@ -53,12 +53,15 @@ router.get("/weather/:city", async (req, res) => {
   });
 
   res.json({
-   outfit: response.output_text
+   outfit: response.output_text,
+   temp: temp,
+   feels_like: feels_like,
+   description: description
   });
 
  } catch (err) {
   console.error(err);  // <-- log full error to terminal
-  res.status(500).json({ error: err instanceof Error ? err.message : "Something went wrong" });
+  res.status(500).json({ error: err instanceof Error ? err.message : err });
  }
 });
 
